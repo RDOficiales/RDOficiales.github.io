@@ -3308,5 +3308,16 @@
         if (dataReady()) { startApp(); } else { showRetryBtn(); }
       }, 12000);
     </script>
+    <script>
+      /* Service worker : anrejistre sw.js (rasin sit la) pou pop-up
+         « Enstale app la » (PWA install prompt) ka parèt. */
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("./sw.js").catch(function (err) {
+            console.warn("Service worker pa t anrejistre:", err);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

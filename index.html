@@ -429,37 +429,55 @@
       .help-btn { font-size: 1.2rem; font-weight: 900; line-height: 1; border-color: var(--yellow); background: rgba(255, 196, 0, 0.1); }
       /* ---------- Kwen anwo ekran akèy la : gid la (tèks) agoch, enstale adwat ----------
          Tou de chita sou menm liy ak logo a, nan kwen anwo paj la (pozisyon
-         absoli parapò ak .wrap). Bouton ⏻ ak ⚙️ yo rete nan ranje anba logo a. */
+         absoli parapò ak .wrap). Bouton ⏻ ak ⚙️ yo rete nan ranje anba logo a.
+         TOUDE bouton kwen yo gen EGZAKTEMAN menm fòm, menm stil, menm design :
+         jòn plen, tèks nwa, menm radius, menm padding, menm gwosè tèks, ti
+         ikon devan tèks la. Yo redwi tou : max-width la (50% - 70px) garanti
+         yo pa janm manyen logo 90px ki nan mitan an — omwen ~10px espas menm
+         sou ekran 320px, epi plis toujou sou ekran ki pi laj. */
       .gear-btn.corner-help {
         position: absolute;
         top: calc(23px + env(safe-area-inset-top));
         left: calc(15px + env(safe-area-inset-left));
         z-index: 6;
-        /* Ti bouton konpak ak TÈKS gid la ekri ladan l (« How to use? »,
-           nan lang app la ye a) : wotè a rete piti (~36px), lajè a
-           ajiste otomatikman ak tèks la. Selektè doub la fè l pase sou
-           règ .gear-btn yo (ki ta ba l yon lajè fiks 46–70px). */
+        /* Menm stil ak bouton enstale a. Selektè doub la pase sou règ
+           .gear-btn / .help-btn yo (fon panèl, bòdò jòn, tèks jòn, gwosè fiks). */
         width: auto;
-        height: 36px;
-        padding: 0 13px;
-        border-radius: 999px;
-        font-size: 0.82rem;
-        font-weight: 800;
-        white-space: nowrap;
+        height: auto;
+        min-height: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        max-width: min(6.4rem, calc(50% - 70px));
+        padding: 5px 8px;
+        background: var(--yellow);
+        color: #0a0a0a;
+        border: none;
+        border-radius: 12px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        line-height: 1.15;
+        text-align: left;
+        white-space: normal;
       }
+      .gear-btn.corner-help svg { flex: 0 0 auto; width: 12px; height: 12px; }
+      .corner-help span { min-width: 0; }
       .install-cta.corner-install {
         position: absolute;
         top: calc(23px + env(safe-area-inset-top));
         right: calc(15px + env(safe-area-inset-right));
         z-index: 6;
-        max-width: 7.25rem;
+        max-width: min(6.4rem, calc(50% - 70px));
         min-height: 0;
-        padding: 6px 10px;
-        border-radius: 14px;
-        font-size: 0.7rem;
+        gap: 4px;
+        padding: 5px 8px;
+        border-radius: 12px;
+        font-size: 0.65rem;
         white-space: normal;
         text-align: left;
       }
+      .install-cta.corner-install svg { width: 12px; height: 12px; }
       .corner-install span { min-width: 0; }
       /* Mesaj akeyi a : li pran plas bouton enstale a nan menm kwen anwo
          dwat la le app la gentan enstale sou aparèy la. */
@@ -1709,7 +1727,7 @@
 
       <!-- ============ EKAN AKEY ============ -->
       <section id="homeView">
-        <button class="gear-btn help-btn corner-help" id="helpBtn" type="button" aria-label="How to use?"><span id="helpBtnLabel">How to use?</span></button>
+        <button class="gear-btn help-btn corner-help" id="helpBtn" type="button" aria-label="How to use?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 0 1 5.5.7c0 1.8-2.7 2.3-2.7 3.8"/><path d="M12 17h.01"/></svg><span id="helpBtnLabel">How to use?</span></button>
         <button class="install-cta corner-install" id="installBtn" type="button" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
           <span id="installBtnLabel">Install RD Quiz Game</span>

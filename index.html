@@ -427,20 +427,25 @@
 
       /* ---------- Titoryel premye vizit : gid etap pa etap ---------- */
       .help-btn { font-size: 1.2rem; font-weight: 900; line-height: 1; border-color: var(--yellow); background: rgba(255, 196, 0, 0.1); }
-      /* ---------- Kwen anwo ekran akèy la : « ? » agoch, enstale adwat ----------
+      /* ---------- Kwen anwo ekran akèy la : gid la (tèks) agoch, enstale adwat ----------
          Tou de chita sou menm liy ak logo a, nan kwen anwo paj la (pozisyon
          absoli parapò ak .wrap). Bouton ⏻ ak ⚙️ yo rete nan ranje anba logo a. */
-      .corner-help {
+      .gear-btn.corner-help {
         position: absolute;
         top: calc(23px + env(safe-area-inset-top));
         left: calc(15px + env(safe-area-inset-left));
         z-index: 6;
-        /* Ti bouton won konpak : mwens lajè/wotè pase .gear-btn (46px),
-           « ? » la pi piti, men li rete vizib epi fasil pou peze. */
-        width: 36px;
+        /* Ti bouton konpak ak TÈKS gid la ekri ladan l (« How to use? »,
+           nan lang app la ye a) : wotè a rete piti (~36px), lajè a
+           ajiste otomatikman ak tèks la. Selektè doub la fè l pase sou
+           règ .gear-btn yo (ki ta ba l yon lajè fiks 46–70px). */
+        width: auto;
         height: 36px;
-        border-radius: 50%;
-        font-size: 1rem;
+        padding: 0 13px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        white-space: nowrap;
       }
       .install-cta.corner-install {
         position: absolute;
@@ -1704,7 +1709,7 @@
 
       <!-- ============ EKAN AKEY ============ -->
       <section id="homeView">
-        <button class="gear-btn help-btn corner-help" id="helpBtn" type="button" aria-label="How to play">?</button>
+        <button class="gear-btn help-btn corner-help" id="helpBtn" type="button" aria-label="How to use?"><span id="helpBtnLabel">How to use?</span></button>
         <button class="install-cta corner-install" id="installBtn" type="button" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
           <span id="installBtnLabel">Install RD Quiz Game</span>
@@ -2170,7 +2175,7 @@
          LANG AKTYÈL app la sèlman (pa janm yon melanj). */
       var TUTORIAL = {
         en: {
-          help: "How to play", skip: "Skip", start: "Start playing", step: "Step {n} of 6",
+          help: "How to play", useBtn: "How to use?", skip: "Skip", start: "Start playing", step: "Step {n} of 6",
           steps: [
             { icon: "🌐", title: "Choose your language", body: "Tap your language right here — the whole app changes right away, and you can keep following this guide in the language you understand. You can change it later in ⚙ Settings too." },
             { icon: "▦", title: "Pick a quiz category", body: "On the home screen, tap a category or a quiz — like Rappers, Celebrities, Knowledge or Young Bl4ck News — to open it. You can also try the Random Mix or True or False." },
@@ -2181,7 +2186,7 @@
           ]
         },
         ht: {
-          help: "Kijan pou w jwe", skip: "Sote", start: "Kòmanse jwe", step: "Etap {n} sou 6",
+          help: "Kijan pou w jwe", useBtn: "Kijan pou itilize l ?", skip: "Sote", start: "Kòmanse jwe", step: "Etap {n} sou 6",
           steps: [
             { icon: "🌐", title: "Chwazi lang ou", body: "Peze lang ou pale a isit la menm — tout app la chanje touswit, epi w ka kontinye gid la nan lang ou konprann nan. Ou ka chanje l pita tou nan ⚙ Paramèt." },
             { icon: "▦", title: "Chwazi yon kategori kiz", body: "Sou ekran akèy la, peze yon kategori oswa yon kiz — tankou Rapè, Selebrite, Konesans oswa Young Bl4ck News — pou w louvri l. Ou ka eseye Melanj Aleyatwa a oswa Vrè oswa Fo tou." },
@@ -2192,7 +2197,7 @@
           ]
         },
         fr: {
-          help: "Comment jouer", skip: "Passer", start: "Commencer à jouer", step: "Étape {n} sur 6",
+          help: "Comment jouer", useBtn: "Comment l'utiliser ?", skip: "Passer", start: "Commencer à jouer", step: "Étape {n} sur 6",
           steps: [
             { icon: "🌐", title: "Choisis ta langue", body: "Touche ta langue juste ici — toute l'app change aussitôt, et tu peux continuer ce guide dans la langue que tu comprends. Tu pourras aussi la changer plus tard dans ⚙ Paramètres." },
             { icon: "▦", title: "Choisis une catégorie de quiz", body: "Sur l'écran d'accueil, touche une catégorie ou un quiz — comme Rappeurs, Célébrités, Connaissances ou Young Bl4ck News — pour l'ouvrir. Tu peux aussi essayer le Mélange aléatoire ou Vrai ou Faux." },
@@ -2203,7 +2208,7 @@
           ]
         },
         es: {
-          help: "Cómo jugar", skip: "Saltar", start: "Empezar a jugar", step: "Paso {n} de 6",
+          help: "Cómo jugar", useBtn: "¿Cómo se usa?", skip: "Saltar", start: "Empezar a jugar", step: "Paso {n} de 6",
           steps: [
             { icon: "🌐", title: "Elige tu idioma", body: "Toca tu idioma justo aquí — toda la app cambia al instante, y puedes seguir esta guía en el idioma que entiendes. También puedes cambiarlo después en ⚙ Ajustes." },
             { icon: "▦", title: "Elige una categoría de quiz", body: "En la pantalla de inicio, toca una categoría o un quiz — como Raperos, Celebridades, Conocimiento o Young Bl4ck News — para abrirlo. También puedes probar la Mezcla aleatoria o Verdadero o Falso." },
@@ -2214,7 +2219,7 @@
           ]
         },
         pt: {
-          help: "Como jogar", skip: "Pular", start: "Começar a jogar", step: "Passo {n} de 6",
+          help: "Como jogar", useBtn: "Como usar?", skip: "Pular", start: "Começar a jogar", step: "Passo {n} de 6",
           steps: [
             { icon: "🌐", title: "Escolha seu idioma", body: "Toque no seu idioma bem aqui — todo o app muda na hora, e você pode continuar este guia no idioma que você entende. Você também pode mudá-lo depois em ⚙ Configurações." },
             { icon: "▦", title: "Escolha uma categoria de quiz", body: "Na tela inicial, toque em uma categoria ou em um quiz — como Rappers, Celebridades, Conhecimento ou Young Bl4ck News — para abri-lo. Você também pode tentar a Mistura aleatória ou Verdadeiro ou Falso." },
@@ -3700,7 +3705,9 @@
         document.getElementById("ownerLabel").textContent = t("owner");
         document.getElementById("settingsBtn").setAttribute("aria-label", t("settings"));
         var helpBtnEl = document.getElementById("helpBtn");
-        if (helpBtnEl) helpBtnEl.setAttribute("aria-label", tutStrings().help);
+        if (helpBtnEl) helpBtnEl.setAttribute("aria-label", tutStrings().useBtn);
+        var helpBtnLabelEl = document.getElementById("helpBtnLabel");
+        if (helpBtnLabelEl) helpBtnLabelEl.textContent = tutStrings().useBtn;
         var tutOvEl = document.getElementById("tutorialOverlay");
         if (tutOvEl && tutOvEl.classList.contains("show") && typeof renderTutStep === "function") renderTutStep();
         if (typeof renderInstall === "function") renderInstall();

@@ -407,10 +407,18 @@
       /* ---------- Ekran Paramèt ---------- */
       .settings-view { display: none; }
       .settings-view.show { display: block; }
+      /* Ba anlè Paramèt yo : bouton Retou a ANWO AGOCH (bò lib la),
+         tit la bò kote l — bouton an vizib touswit, san okenn skrol. */
+      .settings-topbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
       .settings-title {
         font-size: 1.5rem;
         font-weight: 900;
-        margin: 6px 0 18px;
+        margin: 0;
       }
       .settings-label {
         font-size: 0.8rem;
@@ -445,16 +453,16 @@
       .lang-btn .check { color: var(--yellow); font-weight: 900; display: none; }
       .lang-btn.selected .check { display: inline; }
       .back-btn {
-        width: 100%;
-        min-height: 60px;
-        margin-top: 26px;
+        flex: 0 0 auto;
+        min-height: 48px;
+        padding: 10px 16px;
         background: var(--panel-2);
         color: var(--white);
         border: 2px solid var(--line);
-        border-radius: 14px;
+        border-radius: 12px;
         font-family: inherit;
-        font-size: 1.05rem;
-        font-weight: 900;
+        font-size: 0.98rem;
+        font-weight: 800;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
@@ -1350,7 +1358,10 @@
 
       <!-- ============ EKAN PARAMÈT ============ -->
       <section class="settings-view" id="settingsView">
-        <h2 class="settings-title" id="settingsTitle">Settings</h2>
+        <div class="settings-topbar">
+          <button class="back-btn" id="settingsBackBtn" type="button">← Back</button>
+          <h2 class="settings-title" id="settingsTitle">Settings</h2>
+        </div>
 
         <p class="settings-label" id="languageLabel">Language</p>
         <div class="lang-list" id="langList"></div>
@@ -1370,8 +1381,6 @@
             <span id="vibrateLabel2">Vibration</span> <span class="state" id="vibrateState2">On</span>
           </button>
         </div>
-
-        <button class="back-btn" id="settingsBackBtn" type="button">← Back</button>
       </section>
 
       <!-- ============ EKAN CHWAZI NIVO ============ -->
@@ -1738,9 +1747,9 @@
          chak pati = 10 kesyon nan nivo sa a sèlman, ak revèy pa nivo a pou
          CHAK kesyon / deklarasyon pati a. */
       var CHOSEN_LEVELS = [
-        { diffKey: "lvlEasy", time: 15 },
-        { diffKey: "lvlNormal", time: 10 },
-        { diffKey: "lvlHard", time: 5 }
+        { diffKey: "lvlEasy", time: 20 },
+        { diffKey: "lvlNormal", time: 15 },
+        { diffKey: "lvlHard", time: 10 }
       ];
       /* Lòd ranplisay pou kiz 10 kesyon yo : nivo chwazi a anvan, apre nivo ki
          pi pre yo (fasil <- mwayen <- difisil ; nòmal <- fasil <- difisil ;
@@ -2504,7 +2513,7 @@
       function timeForQuestion(qIdx) {
         /* Tout kiz yo (True or False tou) itilize revèy nivo itilizatè a te
            chwazi a pou TOUT kesyon / deklarasyon pati a :
-           15s Fasil, 10s Nòmal, 5s Difisil */
+           20s Fasil, 15s Nòmal, 10s Difisil */
         return CHOSEN_LEVELS[activeLevel].time;
       }
       function isLastOfLevel(qIdx) {
@@ -3075,6 +3084,10 @@
         try { window.localStorage.setItem("rdquiz_lang", code); } catch (e) { /* stokaj pa disponib */ }
         sndTap();
         applyLanguage();
+        /* Apre chanjman lang lan, ekran Paramèt la remonte ANWO otomatikman :
+           bouton Retou a (ki chita anwo ekran an kounye a) parèt touswit,
+           san itilizatè a pa bezwen skwole jis anba pou l tounen. */
+        if (settingsView.classList.contains("show")) window.scrollTo(0, 0);
       }
 
       function applyLanguage() {

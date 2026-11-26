@@ -22,6 +22,17 @@
       window.addEventListener("beforeinstallprompt", function (e) {
         e.preventDefault();
         window.__rdInstallPrompt = e;
+        /* Navigatè a ofri pwompt la SÈLMAN si app la PA enstale : si makè
+           « gentan enstale » a te la, sa vle di itilizatè a te DEZENSTALE
+           app la (dezenstalasyon an pa efase localStorage) — nou efase
+           makè a, ansanm ak makè « pa montre m ankò » a, pou bouton
+           « Enstale » a reparèt nan plas ti mesaj akeyi a. */
+        try {
+          if (window.localStorage.getItem("rdquiz_app_installed")) {
+            window.localStorage.removeItem("rdquiz_app_installed");
+            window.localStorage.removeItem("rdquiz_install_hide");
+          }
+        } catch (err) { /* stokaj pa disponib */ }
         if (typeof window.__rdOnInstallReady === "function") window.__rdOnInstallReady();
       });
       window.addEventListener("appinstalled", function () {
@@ -3941,11 +3952,24 @@
            oswa li peze « Pa montre m ankò » (chwa a sove nan localStorage :
            rdquiz_install_hide). « Pita » ak ✕ fèmen l pou sesyon sa a sèlman —
            li ap re-ouvri nan pwochen ouvèti a.
-         DETEKSYON « GENTAN ENSTALE » — plizyè siyal, nenpòt youn sifi :
+         DETEKSYON « GENTAN ENSTALE » — RE-VERIFIKASYON a chak ouvèti :
+         makè localStorage la a li sèl PA janm sifi, paske li PA efase lè
+         itilizatè a dezenstale app la. A chak chajman nou re-verifye :
          (1) display-mode standalone / minimal-ui / fullscreen ;
-         (2) getInstalledRelatedApps() lè navigatè a sipòte l ;
-         (3) evènman appinstalled a sove flag rdquiz_app_installed nan
-             localStorage, epi nou tcheke l a chak chajman.
+         (2) getInstalledRelatedApps() se SOUS VERITE a lè navigatè a
+             sipòte l : si l di app la PA enstale, nou EFASA makè
+             rdquiz_app_installed la (ak makè « pa montre m ankò » a si
+             makè a te la — sa vle di se yon dezenstalasyon), bouton
+             « Enstale » a reparèt epi ti mesaj akeyi a kache ;
+         (3) si getInstalledRelatedApps pa disponib, evènman
+             beforeinstallprompt la se siyal la : navigatè a voye l SÈLMAN
+             si app la pa enstale, donk nou efase makè yo menm jan an ;
+         (4) evènman appinstalled a sove flag rdquiz_app_installed nan
+             localStorage — li sèvi kòm siyal pozitif sèlman, jiskaske
+             verifikasyon (2) oswa (3) demanti l.
+         Ti mesaj akeyi a (« Ravi de te revoir 😊 ») parèt SÈLMAN si
+         verifikasyon an konfime app la enstale tout bon, oswa paj la ap
+         kouri an mòd standalone.
          RÈG BOUTON AN (4) : ti bouton kwen an parèt SÈLMAN si app la poko
          enstale EPi navigatè a gentan ofri yon pwompt enstalasyon
          (beforeinstallprompt) — oswa si navigatè a pa janm ofri pwompt
@@ -3970,29 +3994,47 @@
       var installAutoShown = false;
 
       function appIsInstalled() {
-        /* (3) Flag appinstalled a : sove nan localStorage, li rete vre nan
-           chak chajman apre a — menm le paj la louvri nan yon onglè
-           navigatè òdinè sou PC a apre enstalasyon an. */
-        try { if (window.localStorage.getItem(INSTALL_DONE_KEY)) return true; } catch (e) { /* stokaj pa disponib */ }
-        /* (2) Rezilta getInstalledRelatedApps() a (asenkron, gade anba a). */
-        if (window.__rdRelatedInstalled === true) return true;
         try {
           if (window.navigator.standalone === true) return true;
-          /* (1) Tout mòd afichaj « app » yo. */
+          /* (1) Tout mòd afichaj « app » yo : paj la ap kouri ANNDAN app
+             ki enstale a, donk li enstale tout bon. */
           var modes = ["standalone", "minimal-ui", "fullscreen", "window-controls-overlay"];
           for (var i = 0; i < modes.length; i++) {
             if (window.matchMedia("(display-mode: " + modes[i] + ")").matches) return true;
           }
         } catch (e) { /* deteksyon pa disponib */ }
+        /* (2) Vèdik getInstalledRelatedApps() a (asenkron, gade anba a) :
+           se sous verite a — si l di app la PA enstale, makè localStorage
+           la pa ka demanti l (li te rete la apre yon dezenstalasyon). */
+        if (window.__rdRelatedInstalled === true) return true;
+        if (window.__rdRelatedInstalled === false) return false;
+        /* (4) Flag appinstalled a : siyal pozitif sèlman, valab jiskaske
+           verifikasyon (2) oswa beforeinstallprompt demanti l. */
+        try { if (window.localStorage.getItem(INSTALL_DONE_KEY)) return true; } catch (e) { /* stokaj pa disponib */ }
         return false;
       }
       function markAppInstalled() {
         try { window.localStorage.setItem(INSTALL_DONE_KEY, "1"); } catch (e) { /* stokaj pa disponib */ }
       }
-      /* (2) getInstalledRelatedApps() : si navigatè a sipòte l epi li
-         rapòte app la kòm enstale, nou make l enstale epi nou mete
-         afichaj la ajou imedyatman (bouton an kache, mesaj akeyi a parèt,
-         pop-up la fèmen si l te louvri). */
+      /* Efase makè « gentan enstale » a lè yon verifikasyon demanti l.
+         Si makè a te la, se yon DEZENSTALASYON ki fèt : nou efase makè
+         « pa montre m ankò » a tou, pou pop-up enstalasyon an ka parèt
+         ankò. Si makè a pat la, nou pa touche anyen (itilizatè a senpleman
+         poko janm enstale app la, chwa « pa montre m ankò » li a rete). */
+      function clearStaleInstallMarker() {
+        var hadMarker = false;
+        try { hadMarker = !!window.localStorage.getItem(INSTALL_DONE_KEY); } catch (e) { /* stokaj pa disponib */ }
+        if (!hadMarker) return;
+        try { window.localStorage.removeItem(INSTALL_DONE_KEY); } catch (e) { /* stokaj pa disponib */ }
+        try { window.localStorage.removeItem(INSTALL_HIDE_KEY); } catch (e) { /* stokaj pa disponib */ }
+      }
+      /* (2) getInstalledRelatedApps() : SOUS VERITE a, verifye a chak
+         chajman. Si l rapòte app la kòm enstale, nou make l enstale epi
+         nou mete afichaj la ajou imedyatman (bouton an kache, mesaj
+         akeyi a parèt, pop-up la fèmen si l te louvri). Si l rapòte app
+         la PA enstale, nou efase makè demode a, nou montre bouton
+         « Enstale » a, nou kache mesaj akeyi a, epi pop-up la ka parèt
+         ankò. */
       function checkInstalledRelatedApps() {
         if (!window.navigator || typeof window.navigator.getInstalledRelatedApps !== "function") return;
         window.navigator.getInstalledRelatedApps().then(function (apps) {
@@ -4001,6 +4043,11 @@
             markAppInstalled();
             closeInstall();
             renderInstall();
+          } else {
+            window.__rdRelatedInstalled = false;
+            clearStaleInstallMarker();
+            renderInstall();
+            maybeShowInstall();
           }
         }).catch(function () { /* deteksyon an pa mache : lòt siyal yo rete */ });
       }
@@ -4079,8 +4126,12 @@
         }, 700);
       }
       window.__rdOnInstallReady = function () {
-        /* Pwompt natif la fèk vin disponib : se kounye a bouton kwen an
-           ka parèt (règ 4) — nou re-kalkile tout afichaj enstalasyon an. */
+        /* Pwompt natif la fèk vin disponib : navigatè a voye l SÈLMAN si
+           app la PA enstale, donk si makè « gentan enstale » a te la, se
+           yon dezenstalasyon — nou efase l (fallback lè
+           getInstalledRelatedApps pa disponib). Apre, se kounye a bouton
+           kwen an ka parèt (règ 4) — nou re-kalkile tout afichaj la. */
+        clearStaleInstallMarker();
         renderInstall();
         maybeShowInstall();
       };

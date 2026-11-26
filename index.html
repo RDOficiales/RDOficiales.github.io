@@ -596,33 +596,33 @@
         background: rgba(5, 5, 5, 0.94);
         align-items: center;
         justify-content: center;
-        padding: calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));
+        padding: calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));
       }
       .tutorial-overlay.show { display: flex; }
       .tutorial-card {
         position: relative;
         width: 100%;
-        max-width: 440px;
+        max-width: 330px;
         max-height: 100%;
         overflow-y: auto;
         background: var(--panel);
         border: 2px solid rgba(255, 196, 0, 0.55);
-        border-radius: 18px;
-        padding: 17px 17px 15px;
+        border-radius: 14px;
+        padding: 12px 13px 11px;
         text-align: center;
       }
       .tut-skip {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        min-height: 40px;
-        padding: 8px 12px;
+        top: 6px;
+        right: 6px;
+        min-height: 36px;
+        padding: 6px 9px;
         background: transparent;
         color: var(--muted);
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         font-family: inherit;
-        font-size: 0.92rem;
+        font-size: 0.85rem;
         font-weight: 800;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -630,9 +630,9 @@
       }
       .tut-skip:active { color: var(--yellow); }
       .tut-icon {
-        width: 52px;
-        height: 52px;
-        margin: 5px auto 8px;
+        width: 38px;
+        height: 38px;
+        margin: 2px auto 6px;
         border-radius: 50%;
         border: 2px solid var(--yellow);
         background: rgba(255, 196, 0, 0.08);
@@ -640,44 +640,44 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1.15rem;
         font-weight: 900;
         line-height: 1;
       }
       .tut-step-label {
-        margin: 0 0 3px;
-        font-size: 0.75rem;
+        margin: 0 0 2px;
+        font-size: 0.7rem;
         font-weight: 800;
         color: var(--yellow);
       }
       .tut-title {
-        margin: 0 0 7px;
-        font-size: 1.18rem;
+        margin: 0 0 5px;
+        font-size: 1rem;
         font-weight: 900;
-        line-height: 1.25;
+        line-height: 1.22;
         color: var(--white);
       }
       .tut-body {
         margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.45;
+        font-size: 0.83rem;
+        line-height: 1.38;
         color: #f0f0f0;
       }
       .tut-visual {
-        min-height: 46px;
+        min-height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 12px 0 4px;
+        margin: 8px 0 2px;
       }
-      .tut-pills { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+      .tut-pills { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
       .tut-pill {
         border: 1px solid var(--line);
         background: var(--panel-2);
         color: var(--white);
         border-radius: 999px;
-        padding: 5px 11px;
-        font-size: 0.8rem;
+        padding: 4px 9px;
+        font-size: 0.75rem;
         font-weight: 800;
         white-space: nowrap;
       }
@@ -685,17 +685,17 @@
       /* Bouton lang KLIKAB anndan titoryèl la (etap 1) : itilizatè a chwazi
          lang li la menm, anvan l peze Swivan — tout app la chanje touswit. */
       .tut-lang-btn {
-        min-height: 44px;
-        padding: 9px 14px;
+        min-height: 38px;
+        padding: 6px 11px;
         display: inline-flex;
         align-items: center;
-        gap: 7px;
+        gap: 6px;
         border: 2px solid var(--line);
         background: var(--panel-2);
         color: var(--white);
         border-radius: 999px;
         font-family: inherit;
-        font-size: 0.88rem;
+        font-size: 0.82rem;
         font-weight: 800;
         white-space: nowrap;
         cursor: pointer;
@@ -711,52 +711,52 @@
         background: rgba(255, 196, 0, 0.1);
       }
       .tut-lang-btn .tut-lang-check { font-weight: 900; }
-      .tut-chips { display: flex; gap: 8px; justify-content: center; font-size: 1.5rem; line-height: 1; }
-      .tut-levels { display: flex; gap: 6px; width: 100%; }
+      .tut-chips { display: flex; gap: 7px; justify-content: center; font-size: 1.25rem; line-height: 1; }
+      .tut-levels { display: flex; gap: 5px; width: 100%; }
       .tut-level {
         flex: 1 1 0;
         min-width: 0;
         background: var(--panel-2);
         border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 7px 4px;
-        font-size: 0.78rem;
+        border-radius: 8px;
+        padding: 5px 3px;
+        font-size: 0.72rem;
         font-weight: 800;
         color: var(--white);
       }
-      .tut-level strong { display: block; color: var(--yellow); font-size: 0.98rem; margin-top: 2px; }
-      .tut-formula { font-size: 1.02rem; font-weight: 900; color: var(--yellow); line-height: 1.45; }
-      .tut-formula .tut-sub { display: block; font-size: 0.82rem; font-weight: 800; color: var(--white); margin-top: 4px; }
-      .tut-mock-btns { display: flex; gap: 8px; width: 100%; }
+      .tut-level strong { display: block; color: var(--yellow); font-size: 0.88rem; margin-top: 1px; }
+      .tut-formula { font-size: 0.92rem; font-weight: 900; color: var(--yellow); line-height: 1.4; }
+      .tut-formula .tut-sub { display: block; font-size: 0.76rem; font-weight: 800; color: var(--white); margin-top: 3px; }
+      .tut-mock-btns { display: flex; gap: 6px; width: 100%; }
       .tut-mock {
         flex: 1 1 0;
         min-width: 0;
-        min-height: 44px;
+        min-height: 38px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        border-radius: 10px;
-        font-size: 0.88rem;
+        gap: 5px;
+        border-radius: 8px;
+        font-size: 0.8rem;
         font-weight: 900;
-        padding: 8px 6px;
+        padding: 6px 5px;
       }
       .tut-mock.outline { border: 2px solid var(--yellow); color: var(--yellow); background: rgba(255, 196, 0, 0.08); }
       .tut-mock.solid { background: var(--yellow); color: #0a0a0a; }
-      .tut-stars { font-size: 1.9rem; letter-spacing: 0.14em; color: var(--yellow); line-height: 1.2; }
-      .tut-dots { display: flex; justify-content: center; gap: 6px; margin: 10px 0 12px; }
-      .tut-dot { width: 8px; height: 8px; border-radius: 999px; background: #3a3a3a; transition: width 0.2s ease, background 0.2s ease; }
-      .tut-dot.active { width: 22px; background: var(--yellow); }
-      .tut-nav { display: flex; gap: 10px; }
+      .tut-stars { font-size: 1.5rem; letter-spacing: 0.14em; color: var(--yellow); line-height: 1.2; }
+      .tut-dots { display: flex; justify-content: center; gap: 5px; margin: 7px 0 9px; }
+      .tut-dot { width: 7px; height: 7px; border-radius: 999px; background: #3a3a3a; transition: width 0.2s ease, background 0.2s ease; }
+      .tut-dot.active { width: 18px; background: var(--yellow); }
+      .tut-nav { display: flex; gap: 8px; }
       .tut-back {
         flex: 1 1 0;
-        min-height: 46px;
+        min-height: 40px;
         background: var(--panel-2);
         color: var(--white);
         border: 2px solid var(--line);
-        border-radius: 12px;
+        border-radius: 10px;
         font-family: inherit;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 800;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -764,13 +764,13 @@
       }
       .tut-next {
         flex: 1.4 1 0;
-        min-height: 46px;
+        min-height: 40px;
         background: var(--yellow);
         color: #0a0a0a;
         border: none;
-        border-radius: 12px;
+        border-radius: 10px;
         font-family: inherit;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 900;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -779,13 +779,13 @@
       .tut-back:active, .tut-next:active { transform: scale(0.99); }
       .tut-btn-off { opacity: 0.38; }
       @media (max-height: 700px) {
-        .tutorial-card { padding: 14px 16px 14px; }
-        .tut-icon { width: 48px; height: 48px; font-size: 1.4rem; margin: 2px auto 8px; }
-        .tut-title { font-size: 1.18rem; }
-        .tut-body { font-size: 0.92rem; line-height: 1.42; }
-        .tut-visual { min-height: 44px; margin: 8px 0 2px; }
-        .tut-dots { margin: 8px 0 10px; }
-        .tut-back, .tut-next { min-height: 48px; }
+        .tutorial-card { padding: 10px 12px 10px; }
+        .tut-icon { width: 34px; height: 34px; font-size: 1.05rem; margin: 1px auto 5px; }
+        .tut-title { font-size: 0.95rem; }
+        .tut-body { font-size: 0.8rem; line-height: 1.35; }
+        .tut-visual { min-height: 32px; margin: 6px 0 1px; }
+        .tut-dots { margin: 6px 0 8px; }
+        .tut-back, .tut-next { min-height: 38px; }
       }
       @media (prefers-reduced-motion: reduce) {
         .tut-dot { transition: none; }
